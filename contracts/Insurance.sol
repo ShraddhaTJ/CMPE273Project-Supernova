@@ -5,7 +5,6 @@ contract Insurance{
     struct User{
         string email;
         string password;
-        string policy_number;
         address user_address;
         string fname;
         string lname;
@@ -13,19 +12,47 @@ contract Insurance{
 
     struct Policy{
         uint policy_number;
-        address provider;
         string benefactor_fname;
         string benefactor_lname;
-        uint claimed_amount;
-        uint unclaimed_balance;
+        uint balance;
         uint premium;
-        uint last_paid_date;
+        unit paid;
+        address user;
         uint expiry_date;
-        uint last_claimed_data;
-        uint last_claimed_amount;
-        uint next_due;
-        uint active_flag;
+        policy_status flag;
         uint start_date;
+        uint payment_due_amount;
+        uint next_due_date;
+    }
+
+    struct Pay{
+        uint payment_id;
+        uint payment_date;
+        uint policy_number;
+        uint amount;
+    }
+
+    struct Claim{
+        uint claim_id;
+        uint policy_number; 
+        uint last_claimed_date;
+        uint last_claimed_amount;
+    }
+
+    enum policy_status {ACTIVE, EXPIRED, CLOSED}
+    
+    mapping(address => User) public users_list;
+    mapping(User => Policy[]) public user_policies;
+
+
+    event payPremium(
+        uint policy_number;
+        uint premium_amount;
+        uint date;
+    );
+    
+    function register(string fname, string lname, string email, string password) public {
+
     }
 
 }
